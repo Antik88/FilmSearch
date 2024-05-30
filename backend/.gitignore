@@ -1,0 +1,38 @@
+## Compiled output
+/dist
+/tmp
+/out-tsc
+/bazel-out
+
+## Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+## .NET Core
+bin/
+obj/
+*.swp
+*.swo
+*.user
+*.suo
+*.nupkg
+*.log
+*.cache
+*.ide
+*.ide-shm
+*.ide-wal
+
+Uploads/
+!/StaticContent/.gitkeep  
+
+StaticContent/
+!/StaticContent/.gitkeep  
+
+/UploadsStaticContent/*
+!/UploadsStaticContent/.gitkeep  
+
+
+## Misc
+.DS_Store
+Thumbs.db

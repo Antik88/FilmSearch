@@ -1,0 +1,42 @@
+version: '3.4'
+
+networks:
+  filmosearcherapp:
+
+services:
+  filmosearchDB:
+    container_name: app-db
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+     - 8002:1433
+    environment:
+     - ACCEPT_EULA=Y
+     - SA_PASSWORD=password@123456
+    networks:
+     - filmosearcherapp
+  filmosearch:
+    container_name: filmsearch-app
+    image: ${DOCKER_REGISTRY-}filmosearch
+    build:
+      context: .
+      dockerfile: FilmoSearch/Dockerfile
+    ports:
+     - 8003:8003 
+    depends_on:
+      - filmosearchDB
+    environment:
+      - DB_HOST=filmosearchDB
+      - DB_NAME=FilmSearchApp
+      - DB_SA_PASSWORD=password@123456
+    networks:
+      - filmosearcherapp
+  filmosearch-react:
+    container_name: filsearch-react-container
+    image: filmsearch-react-app
+    build:
+      context: ../frontend/
+      dockerfile: Dockerfile
+    ports:
+     - 3000:3000
+    networks:
+      - filmosearcherapp
